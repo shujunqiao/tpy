@@ -72,6 +72,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		16F4E0031CF59F02008DEF08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16F4DFFE1CF59F02008DEF08 /* libPython.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 04442B4F17BF75BD00D3E3D1;
+			remoteInfo = libPython;
+		};
+		16F4E0051CF59F02008DEF08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16F4DFFE1CF59F02008DEF08 /* libPython.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 04442CED17BF765A00D3E3D1;
+			remoteInfo = libPythonMac;
+		};
 		1AC6FAF8180E9839004C840B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
@@ -103,6 +117,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16F4DFFE1CF59F02008DEF08 /* libPython.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libPython.xcodeproj; path = ../libpython/libPython.xcodeproj; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -223,6 +238,15 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		16F4DFFF1CF59F02008DEF08 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16F4E0041CF59F02008DEF08 /* libPython.a */,
+				16F4E0061CF59F02008DEF08 /* libPythonMac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +268,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				16F4DFFE1CF59F02008DEF08 /* libPython.xcodeproj */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
@@ -417,6 +442,10 @@
 					ProductGroup = 1AC6FAE6180E9839004C840B /* Products */;
 					ProjectRef = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
 				},
+				{
+					ProductGroup = 16F4DFFF1CF59F02008DEF08 /* Products */;
+					ProjectRef = 16F4DFFE1CF59F02008DEF08 /* libPython.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -427,6 +456,22 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		16F4E0041CF59F02008DEF08 /* libPython.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			name = libPython.a;
+			path = liblibPython.a;
+			remoteRef = 16F4E0031CF59F02008DEF08 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		16F4E0061CF59F02008DEF08 /* libPythonMac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			name = libPythonMac.a;
+			path = liblibPythonMac.a;
+			remoteRef = 16F4E0051CF59F02008DEF08 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
