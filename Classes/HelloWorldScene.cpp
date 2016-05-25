@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "Python.h"
 
 USING_NS_CC;
 
@@ -15,6 +16,22 @@ Scene* HelloWorld::createScene()
 
     // return the scene
     return scene;
+}
+
+void testpy()
+{
+    printf("Hello world!\n");
+    
+    std::string path = FileUtils::getInstance()->fullPathForFilename("python");
+    
+    char PYTHONHOME[1024];
+    strcpy(PYTHONHOME, path.c_str());
+    Py_SetPythonHome( PYTHONHOME );
+    
+    Py_Initialize();
+    PyRun_SimpleString("print \"Hello world,Python!\"\n");
+    Py_Finalize();
+    
 }
 
 // on "init" you need to initialize your instance
@@ -71,6 +88,8 @@ bool HelloWorld::init()
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
+    
+    testpy();
     
     return true;
 }
