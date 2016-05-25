@@ -1,6 +1,8 @@
 #include "HelloWorldScene.h"
 #include "Python.h"
 
+#include "thello.h"
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -18,6 +20,75 @@ Scene* HelloWorld::createScene()
     return scene;
 }
 
+//****************************//
+
+// 1 c/cpp中的函数
+
+int my_c_function(const char *arg) {
+    
+    int n = system(arg);
+    CCLOG("n:%d, arg:%s", n, arg);
+    return n;
+}
+
+// 2 python 包装
+
+static PyObject * wrap_my_c_fun(PyObject *self, PyObject *args) {
+    
+    const char * command;
+    
+    int n;
+    
+    if (!PyArg_ParseTuple(args, "s", &command))//这句是把python的变量args转换成c的变量command
+        
+        return NULL;
+    
+    n = my_c_function(command);//调用c的函数
+    
+    return Py_BuildValue("i", n);//把c的返回值n转换成python的对象
+    
+}
+
+// 3 方法列表
+
+static PyMethodDef MyCppMethods[] = {
+    
+    //MyCppFun1是python中注册的函数名，wrap_my_c_fun是函数指针
+    
+    { "MyCppFun1", wrap_my_c_fun, METH_VARARGS, "Execute a shell command." },
+    
+    { NULL, NULL, 0, NULL }
+    
+};
+
+static PyObject * createsp(PyObject *self, PyObject *args) {
+    
+    const char * command;
+    
+    Sprite* n;
+    
+    if (!PyArg_ParseTuple(args, "s", &command))//这句是把python的变量args转换成c的变量command
+        
+        return NULL;
+    
+    n = Sprite::create(command);//调用c的函数
+    
+    n->setPosition(100, 100);
+    auto sc = HelloWorld::getLy();
+    sc->addChild(n);
+    
+    return Py_BuildValue("PyObject", n);//把c的返回值n转换成python的对象
+    
+}
+
+
+
+static PyMethodDef SpriteMe[] = {
+    { "create", createsp, METH_VARARGS, "create a sprite"},
+    {NULL, NULL, 0, NULL}
+};
+//****************************//
+
 void testpy()
 {
     printf("Hello world!\n");
@@ -28,11 +99,43 @@ void testpy()
     strcpy(PYTHONHOME, path.c_str());
     Py_SetPythonHome( PYTHONHOME );
     
-    Py_Initialize();
-    PyRun_SimpleString("print \"Hello world,Python!\"\n");
-    Py_Finalize();
     
+    Py_Initialize();
+    if (!Py_IsInitialized())  return;
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append('src/')");
+    
+    //*******************//
+    PyObject *m = Py_InitModule("MyCppModule", MyCppMethods);
+    if (m == NULL)
+        CCLOG("---init module failed");
+    PyObject *m1 = Py_InitModule("Sprite", SpriteMe);
+    if (m1 == NULL)
+        CCLOG("---init module sprite failed");
+    
+    //import Module
+    PyObject* pModule = PyImport_ImportModule("hello");
+    if (!pModule) {
+        printf("Can't import Module!/n");
+        return;
+    }
+    
+    PyObject* pDict = PyModule_GetDict(pModule);
+    if (!pDict) {
+        return;
+    }
+    
+    //fetch Function
+    PyObject* pFunHi = PyDict_GetItemString(pDict, "display");
+    PyObject_CallFunction(pFunHi, "s", "Crazybaby");
+    Py_DECREF(pFunHi);
+    
+    //Release
+    Py_DECREF(pModule);
+    Py_Finalize();
 }
+
+static cocos2d::Layer* ly;
 
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
@@ -89,9 +192,16 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
+    ly = Layer::create();
+    this->addChild(ly);
+    
     testpy();
     
     return true;
+}
+
+Layer* HelloWorld::getLy(){
+    return ly;
 }
 
 

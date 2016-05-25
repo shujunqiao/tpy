@@ -10,6 +10,8 @@ public:
 
     virtual bool init();
     
+    static cocos2d::Layer* getLy();
+    
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
