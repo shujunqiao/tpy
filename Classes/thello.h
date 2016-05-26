@@ -12,4 +12,19 @@
 #include <stdio.h>
 
 
+class THello {
+private:
+    
+public:
+    THello();
+    ~THello();
+    
+    static THello* create();
+    
+    static int add(int a, int b){return a + b;};
+    
+    int sub(int a, int b){return a - b ;};
+};
+
+
 #endif /* thello_hpp */

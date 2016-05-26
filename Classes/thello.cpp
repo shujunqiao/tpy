@@ -8,4 +8,17 @@
 
 #include "thello.h"
 
-#include "Python.h" //包含python的头文件
+THello::THello()
+{
+    CCLOG("THello ctor");
+}
+
+THello::~THello()
+{
+    
+}
+
+THello* THello::create()
+{
+    return new THello();
+}

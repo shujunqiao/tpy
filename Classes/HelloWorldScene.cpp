@@ -195,6 +195,10 @@ bool HelloWorld::init()
     ly = Layer::create();
     this->addChild(ly);
     
+    auto th = THello::create();
+    CCLOG("th add:%d", THello::add(3, 2));
+    CCLOG("th sub:%d", th->sub(3, 2));
+    
     testpy();
     
     return true;
